@@ -1,0 +1,18 @@
+{
+  "model_type": "LogisticRegression",
+  "training_date": "2026-07-31T14:31:10.395208",
+  "features": [
+    "no_of_dependents",
+    "education",
+    "self_employed",
+    "income_annum",
+    "loan_amount",
+    "loan_term",
+    "cibil_score",
+    "total_assets"
+  ],
+  "num_features": 8,
+  "class_weights": "balanced",
+  "threshold": 0.5,
+  "scaler": "StandardScaler"
+}

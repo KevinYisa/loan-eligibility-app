@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pkl
+venv/
+env/
+python/scripts/__pycache__/
+
+# Environment variables
+.env
+.env.local
+
+# Go
+*.exe
+*.test
+server
+backend-go/server
+backend-go/cmd/cmd
+
+# Node / React (Phase 3)
+node_modules/
+build/
+dist/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Dataset (Optional but keeps repo small. We already processed it, we just need the JSON files)
+# python/datasets/*.csv   # Uncomment this if you want to exclude the huge raw CSV
