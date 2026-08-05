@@ -1,0 +1,328 @@
+<!DOCTYPE HTML>
+<!--
+    Dimension by HTML5 UP | html5up.net | @ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+    Modified for SecureLoan Finance with React integration.
+-->
+<html>
+<head>
+    <title>FinFund Finance</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <!-- React CSS (built from Vite) -->
+    <link rel="stylesheet" href="assets/react/index-CGfq3LeX.css">
+
+    <style>
+        /* --- Background transition --- */
+        #bg {
+            transition: background-image 1.2s ease-in-out;
+        }
+
+        /* --- React app styles inside #predictor-root --- */
+        #predictor-root {
+            max-width: 100%;
+            margin: 1rem 0;
+        }
+
+        #predictor-root input,
+        #predictor-root select,
+        #predictor-root textarea {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            padding: 0.6rem 0.8rem;
+            border-radius: 4px;
+            width: 100%;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease, background 0.2s ease;
+        }
+
+        #predictor-root input:focus,
+        #predictor-root select:focus,
+        #predictor-root textarea:focus {
+            border-color: #ffffff;
+            outline: none;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        #predictor-root label {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08rem;
+            margin-bottom: 0.3rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+        }
+
+        #predictor-root .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem 1.5rem;
+        }
+
+        #predictor-root .form-full {
+            grid-column: span 2;
+        }
+
+        #predictor-root .form-submit {
+            grid-column: span 2;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        #predictor-root .result-box {
+            margin-top: 2rem;
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #predictor-root .result-box h3 {
+            margin-top: 0;
+            font-size: 1.1rem;
+            letter-spacing: 0.1rem;
+        }
+
+        #predictor-root .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        #predictor-root .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .eligible-yes {
+            color: #4CAF50;
+        }
+        .eligible-no {
+            color: #f44336;
+        }
+        .risk-low {
+            color: #4CAF50;
+        }
+        .risk-medium {
+            color: #FF9800;
+        }
+        .risk-high {
+            color: #f44336;
+        }
+
+        #predictor-root .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.6rem;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        #predictor-root .metrics-grid .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.6rem 0.3rem;
+            border-radius: 4px;
+        }
+
+        #predictor-root .metrics-grid .metric-card strong {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.2rem;
+        }
+
+        #predictor-root .metrics-grid .metric-card span {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Fix select dropdown on dark backgrounds */
+        #predictor-root select option {
+            background: #1b1f22;
+            color: #ffffff;
+        }
+
+        /* Recharts wrapper adjustment */
+        #predictor-root .recharts-wrapper {
+            margin: 0 auto;
+        }
+
+        /* Chart container */
+        #predictor-root .chart-container {
+            width: 100%;
+            height: 280px;
+            margin-top: 1.5rem;
+        }
+
+        /* Loader animation */
+        #predictor-root .loader {
+            display: inline-block;
+            width: 1.2rem;
+            height: 1.2rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 736px) {
+            #predictor-root .form-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            #predictor-root .form-full,
+            #predictor-root .form-submit {
+                grid-column: span 1;
+            }
+            #predictor-root .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            #predictor-root .result-box {
+                padding: 1rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            #predictor-root .metrics-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            #predictor-root .chart-container {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- ====== HEADER ====== -->
+        <header id="header">
+            <div class="logo">
+                <span class="icon fa-gem"></span>
+            </div>
+            <div class="content">
+                <div class="inner">
+                    <h1>FinFund Finance</h1>
+                    <p>Get Cash, Get Moving. <br/>
+                   Short and Long term Loans</p>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#intro">About</a></li>
+                    <li><a href="#predictor">Predictor</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- ====== MAIN CONTENT ====== -->
+        <div id="main">
+
+            <!-- ====== ABOUT ====== -->
+            <article id="intro">
+                <h2 class="major">About Us</h2>
+                <span class="image main"><img src="images/pic01.jpg" alt="FinFund Finance team" /></span>
+                <p>Welcome to <strong>FinFund Finance</strong>, where people always come first. We believe financial support should be clear, fair, and available when it matters most. Our <strong>Mission</strong> is built on one simple promise: to help you move forward with confidence. </p> <p> Every interaction reflects our <strong>Dedication</strong> to exceptional service, honest communication, and meaningful relationships. We don't simply provide finance—we provide <strong>Peace Of Mind</strong>, understanding that every customer has a unique journey. </p> <p> Your success is the measure of ours. Through transparency, reliability, and an unwavering focus on <strong>Customer Satisfaction</strong>, we strive to become a trusted financial partner for today and the future. </p></p>
+                <p>Our team of experienced financial advisors works closely with clients to ensure we obtain the perfect service and rates for you. <a href="#predictor">Try our loan predictor</a> to see if you qualify.</p>
+            </article>
+
+            <!-- ====== PREDICTOR (React mounts here) ====== -->
+            <article id="predictor">
+                <h2 class="major">Loan Eligibility Predictor</h2>
+                <span class="image main"><img src="images/pic02.jpg" alt="Loan predictor illustration" /></span>
+                <p>Take the <strong> First step to Finacial Freedom. </strong> Our team has useses <strong>Machine learning</strong> to help you <strong>predict your loan </strong> . Enter your details below to receive an instant, secure eligibility assessment tailored to you.</p>
+                <!-- React mount point -->
+                <div id="predictor-root"></div>
+            </article>
+
+            <!-- ====== CONTACT ====== -->
+             <article id="contact">
+                <h2 class="major">Contact</h2>
+                <span class="image main"><img src="images/pic01.jpg" alt="Contact us" /></span>
+                <p>Have questions about your loan eligibility? Fill out the form below and our team will get back to you within 24 hours.</p>
+                <div id="contact-root"></div>
+                <ul class="icons">
+                    <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                    <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+                    <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                    <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+                </ul>
+            </article>
+
+                <!-- ====== ELEMENTS (hidden, kept for reference) ====== -->
+                <article id="elements">
+                    <h2 class="major">Elements</h2>
+                    <!-- ... full elements content ... -->
+                    <!-- (I've truncated this for brevity, but keep your full elements section if needed) -->
+                </article>
+
+        </div><!-- /main -->
+
+        <!-- ====== FOOTER ====== -->
+        <footer id="footer">
+            <p class="copyright">&copy; FinFund Finance. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        </footer>
+
+    </div><!-- /wrapper -->
+
+    <!-- ====== BACKGROUND ====== -->
+    <div id="bg"></div>
+
+    <!-- ====== JQUERY & DIMENSION SCRIPTS ====== -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <!-- ====== BACKGROUND ROTATION ====== -->
+    <script>
+        window.addEventListener("load", function() {
+            const images = [
+                "images/bg-1.jpg",
+                "images/bg-2.jpg",
+                "images/bg-3.jpg"
+            ];
+
+            const bg = document.getElementById("bg");
+            if (!bg) return;
+
+            let index = 0;
+
+            function changeBackground() {
+                bg.style.backgroundImage = 'url("' + images[index] + '")';
+                bg.style.backgroundSize = "cover";
+                bg.style.backgroundPosition = "center";
+                bg.style.backgroundRepeat = "no-repeat";
+                index = (index + 1) % images.length;
+            }
+
+            changeBackground();
+            setInterval(changeBackground, 12000);
+        });
+    </script>
+
+    <!-- ====== REACT APP (built from Vite) ====== -->
+    <!-- IMPORTANT: Update these filenames to match your actual built assets -->
+    <link rel="stylesheet" href="assets/react/index-D49_VFtR.css">
+    <script type="module" src="assets/react/index-DdQzviJT.js"></script>
+
+</body>
+</html>
