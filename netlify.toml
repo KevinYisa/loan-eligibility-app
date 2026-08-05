@@ -1,18 +1,18 @@
-# netlify.toml
 [build]
-  # The directory where your React app is built
-  base = "frontend/main-page"
   publish = "frontend/main-page"
   command = "echo 'No build command needed for static site'"
 
 [functions]
-  # Where Netlify looks for functions
   directory = "netlify/functions"
-
-  # Node.js version
   node_bundler = "esbuild"
 
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
+  status = 200
+
+# Optional: redirect root to landing
+[[redirects]]
+  from = "/"
+  to = "/landing/"
   status = 200
