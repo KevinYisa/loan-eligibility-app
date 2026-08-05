@@ -1,5 +1,5 @@
 [build]
-  publish = "frontend/main-page"
+  publish = "frontend/landing"
   command = "echo 'No build command needed for static site'"
 
 [functions]
