@@ -1,7 +1,6 @@
 [build]
-  base = "frontend"
-  command = "npm run build"
-  publish = "dist"
+  publish = "frontend/dist" # Or just "frontend" depending on your Vite output folder
+  command = "npm run build" # CRITICAL: This runs your Vite build so environment variables get baked in
 
 [functions]
   directory = "netlify/functions"
@@ -13,6 +12,6 @@
   status = 200
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/"
+  to = "/landing/"
   status = 200
