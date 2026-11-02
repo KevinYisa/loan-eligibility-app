@@ -1,6 +1,6 @@
 [build]
-  publish = "frontend/dist" # Or just "frontend" depending on your Vite output folder
-  command = "npm run build" # CRITICAL: This runs your Vite build so environment variables get baked in
+  publish = "frontend"
+  command = "echo 'No build command needed for static site'"
 
 [functions]
   directory = "netlify/functions"
@@ -11,6 +11,7 @@
   to = "/.netlify/functions/:splat"
   status = 200
 
+# Optional: redirect root to landing
 [[redirects]]
   from = "/"
   to = "/landing/"
