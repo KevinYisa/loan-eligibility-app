@@ -8,8 +8,13 @@ const MetricsDisplay = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const apiBase = import.meta.env.VITE_API_URL || '';
+      
+      if (!apiBase) {
+        console.error("CRITICAL: VITE_API_URL is not defined in the environment variables!");
+      }
+
       try {
-        const apiBase = import.meta.env.VITE_API_URL ||"";
         const response = await axios.get(`${apiBase}/metrics`);
         setMetrics(response.data);
       } catch (err) {
@@ -17,15 +22,13 @@ const MetricsDisplay = () => {
       } finally {
         setLoading(false);
       }
-      if (!apiBase) {
-        console.error("CRITICAL: VITE_API_URL is not defined in the environment variables!");
-      }
     };
     fetchData();
   }, []);
 
   if (loading) return <p>Loading metrics...</p>;
   if (error) return <p style={{ color: 'red' }}>{error}</p>;
+  if (!metrics) return null;
 
   return (
     <div style={{ marginTop: '1.5rem' }}>
