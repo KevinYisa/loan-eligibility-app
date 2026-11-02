@@ -9,13 +9,16 @@ const MetricsDisplay = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiBase = import.meta.env.VITE_API_URL "";
+        const apiBase = import.meta.env.VITE_API_URL ||"";
         const response = await axios.get(`${apiBase}/metrics`);
         setMetrics(response.data);
       } catch (err) {
         setError('Failed to load metrics');
       } finally {
         setLoading(false);
+      }
+      if (!apiBase) {
+        console.error("CRITICAL: VITE_API_URL is not defined in the environment variables!");
       }
     };
     fetchData();
