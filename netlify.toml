@@ -1,7 +1,7 @@
 [build]
-  publish = "frontend/react-app/dist1"
+  publish = "frontend"
   command = "echo 'No build command needed for static site'"
-  
+
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
